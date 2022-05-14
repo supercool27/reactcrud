@@ -13,6 +13,7 @@ import DeleteEmployeeModal from "./deleteEmployeeModal";
 class App extends Component {
   state = {
     employee: [],
+    data_source: [],
     isAddEmployeeModalOpen: false,
     isEditEmployeeModalOpen: false,
     isDeleteEmployeeModalOpen: false,
@@ -47,14 +48,12 @@ class App extends Component {
           loading: true,
           errorMessage: "Network Error. Please try again....",
         }),
-        
       );
 
   // fetch('http://dummy.restapiexample.com/api/v1/employees').then((response)=>response.json()).then((json)=>
   //  console.log(json),
   //   ).catch((error)=>console.log(error))
-
-
+  
   };
 
 
@@ -118,10 +117,19 @@ class App extends Component {
           </TouchableOpacity>
 
           <Text style={styles.title}>Emloyee Lists:</Text>
-        
-          { Object.keys(this.state.employee).map( (data,index) => {
-            console.log(this.state.employee.data)
- })}
+            {/* {
+              Object.keys(this.state.employee).map( (data,index) => 
+                {
+                 
+                  
+                  // LOG  status
+                  // LOG  data {"status":"success",
+                  // "data":[{"id":1,"employee_name":"Tiger Nixon","employee_salary":320800,"employee_age":61,"profile_image":""}]}
+                  // LOG  message
+                }
+              )
+            } */}
+
 {this.state.employee.map((data, index) => (
   <View style={styles.employeeListContainer} key={data.id}>
     <Text style={{ ...styles.listItem, color: "tomato" }}>
@@ -163,11 +171,6 @@ class App extends Component {
     </View>
   </View>
 ))}
-
-
-        
-        
-       
 
           {loading ? (
             <Text style={styles.message}>Please Wait...</Text>
