@@ -30,7 +30,8 @@ class AddEmployeeModal extends Component {
         this.setState({ errorMessage: "", loading: true });
 
         if (name && age && salary) {
-            fetch('http://dummy.restapiexample.com/api/v1/create', {
+            fetch('http://dummy.restapiexample.com/api/v1/create', 
+            {
                 method: "POST",
                 headers: {
                     "Accept": "application/json",
@@ -88,17 +89,16 @@ class AddEmployeeModal extends Component {
                         onChangeText={(text) => this.handleChange(text, "age")}
                         placeholder="Age" />
 
-                    {loading ? <Text
+                    { loading ? <Text
                         style={styles.message}>Please Wait...</Text> : errorMessage ? <Text
-                            style={styles.message}>{errorMessage}</Text> : null}
+                            style={styles.message}>{errorMessage}</Text> : null }
 
                     <View style={styles.buttonContainer}>
                         <TouchableOpacity
                             onPress={this.addEmployee}
-                            style={{ ...styles.button, marginVertical: 0 }}>
+                            style={{...styles.button, marginVertical: 0 }}>
                             <Text style={styles.buttonText}>Submit</Text>
                         </TouchableOpacity>
-
                         <TouchableOpacity
                             onPress={closeModal}
                             style={{ ...styles.button, marginVertical: 0, marginLeft: 10, backgroundColor: "tomato" }}>

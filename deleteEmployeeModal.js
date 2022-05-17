@@ -24,11 +24,16 @@ class DeleteEmployeeModal extends Component {
     }
 
     deleteEmployee = () => {
+        
         // destructure state
         this.setState({ errorMessage: "", loading: true });
 
         // selected employee is updated with employee id
-        fetch(`http://dummy.restapiexample.com/api/v1/delete/${this.props.selectedEmployee.id}`, {
+        // fetch(`http://dummy.restapiexample.com/api/v1/delete/${this.props.selectedEmployee.id}`, {
+        //     method: "DELETE"
+        // })
+        
+        fetch(`https://jsonplaceholder.typicode.com/posts/${this.props.selectedEmployee.id}`, {
             method: "DELETE"
         })
             .then(res => res.json())

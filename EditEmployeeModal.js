@@ -8,6 +8,7 @@ import {
     TouchableOpacity
 } from 'react-native';
 
+
 class EditEmployeeModal extends Component {
     constructor(props) {
         super(props);
@@ -30,13 +31,11 @@ class EditEmployeeModal extends Component {
         })
     }
 
-    handleChange = (value, state) => {
-        this.setState({ [state]: value })
-    }
 
     updateEmployee = () => {
         // destructure state
         const { name, age, salary } = this.state;
+
         this.setState({ errorMessage: "", loading: true });
 
         if (name && age && salary) {
@@ -107,12 +106,14 @@ class EditEmployeeModal extends Component {
                             style={styles.message}>{errorMessage}</Text> : null}
 
                     <View style={styles.buttonContainer}>
+                        
                         <TouchableOpacity
                             onPress={this.updateEmployee}
                             style={{ ...styles.button, marginVertical: 0 }}>
                             <Text style={styles.buttonText}>Update</Text>
                         </TouchableOpacity>
 
+                        
                         <TouchableOpacity
                             onPress={closeModal}
                             style={{ ...styles.button, marginVertical: 0, marginLeft: 10, backgroundColor: "tomato" }}>
@@ -126,10 +127,7 @@ class EditEmployeeModal extends Component {
     }
 }
 
-
-
 export default EditEmployeeModal;
-
 const styles = StyleSheet.create({
     container: {
         padding: 15

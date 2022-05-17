@@ -9,6 +9,7 @@ import {
 import AddEmployeeModal from "./AddEmployeeModal";
 import EditEmployeeModal from "./EditEmployeeModal";
 import DeleteEmployeeModal from "./deleteEmployeeModal";
+import WeatherProject from "./Weatherproject";
 
 class App extends Component {
   state = {
@@ -23,10 +24,62 @@ class App extends Component {
   };
 
   componentDidMount() {
-    this.getData();
+  console.log('--------------------------------------------get------------------------------------------');
+   // this.getData();
+
+   this.getTestData();
+
+  console.log('--------------------------------------------get data done--------------------------------');
     
   }
 
+  getTestData = async () => {
+    this.setState({ errorMessage: "", loading: true });
+    let response = await fetch(
+      'https://jsonplaceholder.typicode.com/posts'
+    );
+    let json = await response.json();
+    console.log(JSON.stringify(json));
+    return this.setState({
+              employee: json,
+              loading: true,
+              errorMessage: "",
+            });
+             
+
+    
+  //   this.setState({ errorMessage: "", loading: true });
+  // let response= await fetch("https://jsonplaceholder.typicode.com/posts", {
+  //     method: "GET",
+  //     header: {
+  //       'Accept': 'application/json',
+  //       'Content-Type': 'application/json',
+  //     }
+  //   })
+  //     .then((response) => {
+  //       console.log('----------------------------------------resData ---------------------------------');
+  //       response.json()})
+  //     .then((json) => {
+  //   //   console.log(JSON.stringify(json));
+  //   let json = await response.json();
+  //       this.setState({
+  //         employee: json,
+  //         loading: true,
+  //         errorMessage: "",
+  //       });
+  //     }
+  //     )
+
+      // console.log('----------------------------------------resJSON ---------------------------------');
+      // let json = await response.json();
+      // console.log(json);
+
+
+    
+  // fetch('https://jsonplaceholder.typicode.com/posts').then((response)=>response.json()).then((json)=>
+  //  console.log(json),
+  //   ).catch((error)=>console.log(error))
+};
   getData = () => {
     this.setState({ errorMessage: "", loading: true });
     fetch("http://dummy.restapiexample.com/api/v1/employees", {
@@ -36,12 +89,18 @@ class App extends Component {
         'Content-Type': 'application/json',
       }
     })
-      .then((res) => res.json())
-      .then((res) =>this.setState({
+      .then((res) => {
+        console.log('----------------------------------------resData ---------------------------------');
+        res.json()})
+      .then((res) => {
+       console.log(JSON.stringify(res));
+       console.log('----------------------------------------resJSON ---------------------------------');
+        this.setState({
           employee: res,
           loading: true,
           errorMessage: "",
-        }),
+        });
+      }
       )
       .catch((error) =>
         this.setState({
@@ -54,8 +113,10 @@ class App extends Component {
   // fetch('http://dummy.restapiexample.com/api/v1/employees').then((response)=>response.json()).then((json)=>
   //  console.log(json),
   //   ).catch((error)=>console.log(error))
-  
-  };
+};
+
+
+
 
 
   toggleAddEmployeeModal = () => {
@@ -108,6 +169,7 @@ class App extends Component {
       selectedEmployee,
     } = this.state;
     return (
+      // <WeatherProject/>
       <ScrollView>
         <View style={styles.container}>
           <TouchableOpacity
@@ -134,21 +196,21 @@ class App extends Component {
 {this.state.employee.map((data, index) => (
   <View style={styles.employeeListContainer} key={data.id}>
     <Text style={{ ...styles.listItem, color: "tomato" }}>
-      {index + 1}.
+      {index }+ {data.id}.
     </Text>
     <Text style={styles.name}>{data.employee_name}</Text>
     <Text style={styles.listItem}>
-      employee age: {data.employee_age}
+      employee age: {data.employee_age} + {data.title}
     </Text>
     <Text style={styles.listItem}>
-      employee salary: {data.employee_salary}
+      employee salary: {data.employee_salary} + {data.body}
     </Text>
 
     <View style={styles.buttonContainer}>
       <TouchableOpacity
         onPress={() => {
           this.toggleEditEmployeeModal();
-          this.setState({ selectedEmployee: data });
+          this.setState({ selectedEmployee: data.id });
         }}
         style={{ ...styles.button, marginVertical: 0 }}
       >
